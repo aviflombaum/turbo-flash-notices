@@ -1,0 +1,15 @@
+/* Application styles */
+
+.heart {
+  color: #e00;
+  animation: beat 0.45s infinite alternate;
+  transform-origin: center;
+  display: inline-block;
+  font-size: 1.5em;
+}
+
+@keyframes beat {
+  to {
+    transform: scale(1.2);
+  }
+}

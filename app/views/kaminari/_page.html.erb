@@ -1,0 +1,15 @@
+<% if page.current? %>
+  <li>
+    <a href="<%= url %>" rel="<%= page.rel %>" aria-current="page" class="paginator__page paginator__page-current <%= "paginator__page-first" if current_page.first? %> <%= "paginator__page-last" if current_page.last? %>"
+      data-turbo-action="advance">
+      <%= page %>
+    </a>
+  </li>
+<% else %>
+  <li>
+    <a href="<%= url %>" rel="<%= page.rel %>" class="paginator__page"
+      data-turbo-action="advance">
+      <%= page %>
+    </a>
+  </li>
+<% end %>
