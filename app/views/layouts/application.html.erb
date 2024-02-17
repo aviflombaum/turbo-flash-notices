@@ -21,10 +21,12 @@
   </head>
 
   <body class="<%= content_for(:body_class) %>">
-    <main>
+    <main class="<%= content_for(:main_class) %>">
       <%= yield %>
     </main>
 
     <%= render "layouts/footer" %>
+
+    <%= render "layouts/toast" %>
   </body>
 </html>

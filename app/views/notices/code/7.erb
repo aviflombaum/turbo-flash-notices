@@ -1,0 +1,13 @@
+<%= turbo_frame_tag "new_job" do %>
+  <%= form_for @job_post do %>
+    <%= flash_alert do %>
+      <ul>
+        <% @job_post.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    <% end %>
+
+    <!-- The Job Post Form -->
+  <% end %>
+<% end %>

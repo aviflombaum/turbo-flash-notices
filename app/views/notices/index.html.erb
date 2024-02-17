@@ -4,12 +4,7 @@
 
 <h1 class="mb-4 tracking-tighter text-center">Turbo Flash Notices</h1>
 
-<%= turbo_frame_tag "alert", class: "w-full" do %>
-  <%= flash_alert %>
-<% end %>
-
-<%= turbo_frame_tag "toast" do %>
-  <%= render "layouts/toast" %>
+<%= flash_alert do %>
 <% end %>
 
 <div class="bg-gray-200 divide-y divide-gray-200 rounded-lg shadow sm:grid sm:grid-cols-2 sm:gap-px sm:divide-y-0">
@@ -19,7 +14,7 @@
       An alert from a standard HTTP response.
     </p>
     <div class="mt-auto">
-      <%= form_tag notices_root_path, method: :get, data: {turbo_frame: "_top"} do %>
+      <%= form_tag notices_root_path, method: :get do %>
         <%= hidden_field_tag :type, :alert %>
         <select
             name="status"
@@ -42,19 +37,21 @@
       An alert after a turbo frame interaction.
     </p>
     <div class="mt-auto">
-      <%= form_tag notices_root_path, method: :get, data: {turbo_frame: "alert"} do %>
-        <%= hidden_field_tag :type, :alert %>
-        <select
+      <%= turbo_frame_tag "alert_demo" do %>
+        <%= form_tag notices_root_path, method: :get, data: {turbo_frame: "_top"} do %>
+          <%= hidden_field_tag :type, :alert %>
+          <select
         name="status"
         id="status"
         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-          <% statuses.each do |status| %>
-            <option value="<%= status %>"><%= status.titleize %></option>
-          <% end %>
-        </select>
-        <button class="w-full px-4 py-2 mt-2 font-semibold text-gray-800 bg-white border border-gray-400 rounded shadow hover:bg-gray-100">
-          Demo
-        </button>
+            <% statuses.each do |status| %>
+              <option value="<%= status %>"><%= status.titleize %></option>
+            <% end %>
+          </select>
+          <button class="w-full px-4 py-2 mt-2 font-semibold text-gray-800 bg-white border border-gray-400 rounded shadow hover:bg-gray-100">
+            Demo
+          </button>
+        <% end %>
       <% end %>
     </div>
   </div>
@@ -88,7 +85,7 @@
       A toast from an HTTP response.
     </p>
     <div class="mt-auto">
-      <%= form_tag notices_root_path, method: :get, data: {turbo_frame: "_top"} do %>
+      <%= form_tag notices_root_path, method: :get do %>
         <%= hidden_field_tag :type, :toast %>
         <select
             name="status"
@@ -111,19 +108,21 @@
       A toast from a turbo frame interaction.
     </p>
     <div class="mt-auto">
-      <%= form_tag notices_root_path, method: :get, data: {turbo_frame: "toast"} do %>
-        <%= hidden_field_tag :type, :toast %>
-        <select
+      <%= turbo_frame_tag "toast_demo" do %>
+        <%= form_tag notices_root_path, method: :get, data: {turbo_frame: "_top"} do %>
+          <%= hidden_field_tag :type, :toast %>
+          <select
             name="status"
             id="status"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-          <% statuses.each do |status| %>
-            <option value="<%= status %>"><%= status.titleize %></option>
-          <% end %>
-        </select>
-        <button class="w-full px-4 py-2 mt-2 font-semibold text-gray-800 bg-white border border-gray-400 rounded shadow hover:bg-gray-100">
-          Demo
-        </button>
+            <% statuses.each do |status| %>
+              <option value="<%= status %>"><%= status.titleize %></option>
+            <% end %>
+          </select>
+          <button class="w-full px-4 py-2 mt-2 font-semibold text-gray-800 bg-white border border-gray-400 rounded shadow hover:bg-gray-100">
+            Demo
+          </button>
+        <% end %>
       <% end %>
     </div>
   </div>
@@ -148,6 +147,165 @@
           Demo
         </button>
       <% end %>
+    </div>
+  </div>
+</div>
+
+<% content_for :main_class, "max-w-4xl" %>
+
+<%= content_for :head do %>
+  <%= stylesheet_link_tag "prism" %>
+  <%= javascript_include_tag "prism.js" %>
+<% end %>
+
+<div class="px-6 py-16 lg:px-8 w-full bg-white my-8 rounded-lg" data-turbo-permanent="true" id="article">
+  <div class="mx-auto max-w-4xl text-base leading-7 text-gray-700">
+    <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-4xl">How it All Works</h1>
+    <div class="mt-10 max-w-4xl gap-y-4 flex flex-col">
+      <p>
+        My goal is to show you how you can have all these options for <code>flash[:notice]</code> at your command in your application.
+        You should be able to use an alert when you want, a toast when you want, and make everything just work independent of how
+        the interaction was conducted, whether through a standard HTTP request, a Turbo Frame interaction, or a Turbo Stream.
+      </p>
+      <p>
+        Here's some ideas for this common UX pattern in your Ruby on Rails application.
+        The <%= link_to "source", "https://github.com/aviflombaum/turbo-flash-notices/tree/main", class: "text-blue-500 hover:underline" %> of this application demonstrates these practices, however, because everything is happening without forms, validations, and from a single page,
+        the code is a little contrived and different than what you will find below, but the premise is the same.
+      </p>
+      <p>I hope this demo inspires you with some ideas for your application.</p>
+    </div>
+    <h2 class="mt-16 text-2xl font-bold tracking-tight text-gray-900">Starting with a Standard HTTP Alert</h2>
+    <div class="mt-10 max-w-4xl gap-y-4 flex flex-col">
+      <p>
+        You generally want to use an "HTTP" Alert when the application is sending back a standard HTTP response to the browser, so not through a Turbo interaction.
+        This is common when you are for instance displaying a form, the user submits it, and you want to redirect to the page and let them know it was successful
+        or render the form again with the <code>flash[:notice]</code> appearing above it telling the user what validations failed.
+      </p>
+
+      <%= image_tag "https://img.avi.nyc/gqclBrww+", class: "my-4 border border-gray-200 rounded-lg" %>
+
+      <p>
+        The controller code that caused that alert to be displayed is generally something like:
+      </p>
+
+      <%= code_block "app/views/notices/code/1.rb", "ruby" %>
+
+      <p>
+        Generally, you are embedding the alert on a per-view basis. So your alert template is not part of your layout, but rather you
+        place it in the view where you want it to appear, like above the form.
+      </p>
+
+      <%= code_block "app/views/notices/code/2.erb", "erb" %>
+
+      <p>
+        This literal alert seperates the concept of an alert from <code>flash[:notice]</code> and means you have to embed your alert HTML
+        in every view, which is a lot. Generally the only thing in the alert that is changing is the list of validation errors. What I
+        did starts treating the <code>flash</code> in a bit more structured way and used a helper to keep writing out my flash DRY.
+      </p>
+
+      <p>
+        The first thing I tend to do is construct my <code>flash</code> objects with a bit more metadata. In my controllers, I tend to write 
+        the <code>flash</code> something like this:
+      </p>
+
+      <%= code_block "app/views/notices/code/3.rb", "ruby" %>
+
+      <p>
+        This allows me to tell my application the type of notice I want to display, an alert or a toast (which we'll discuss in a bit), the status of it, and provide an
+        optional title or message from the controller.
+      </p>
+
+      <p>
+        To render my <code>flash</code> hash, I write a helper method and a re-usable partial. The helper method generally looks something like:
+      </p>
+
+      <%= code_block "app/views/notices/code/4.rb", "ruby" %>
+
+      <p>That pairs with a partial that might look something like:</p>
+
+      <%= code_block "app/views/notices/code/5.erb", "erb" %>
+
+      <p>
+        There's a lot going on there so let's break it down. First, there's the case statement which handles styling the alert based on status.
+      </p>
+
+      <p>
+        The important thing to notice is the <code>yield</code> in the partial. That means with the <code>flash_alert</code> method is called,
+        I can pass it a block that will be passed down into the partial and rendered where the <code>yield</code> appears. I can use this helper method and partial
+        like so:
+      </p>
+
+      <%= code_block "app/views/notices/code/6.erb", "erb" %>
+
+      <p>
+        The controller can pass down the title and the message if it wants and the view can be specific and render the alert wherever you choose to place it with whatever
+        inner content you want it to have. And that is the first step in creating a a very flexible flash notification system for your application.
+      </p>
+    </div>
+    <h2 class="mt-16 text-2xl font-bold tracking-tight text-gray-900">Turbo Frame Alerts</h2>
+    <div class="mt-10 max-w-4xl gap-y-4 flex flex-col">
+      <p>
+        When you're interacting with your application through a Turbo Frame, the interactions will generally update the content of the frame itself and not the rest of your view.
+      </p>
+      <p>
+        You can use what we've already built pretty easily to embed an alert within a turbo frame update by using the same <code>flash_alert</code> method within the view that renders the turbo frame.
+        It might look something like this:
+      </p>
+
+      <%= code_block "app/views/notices/code/7.erb", "erb" %>
+
+      <p>
+        When validation for that form fails, I can re-render the view with the form and the frame and the flash alert will be displayed along with the errors that failed validation.
+        That's basically all there is to it to support flash alerts within a turbo frame.
+      </p>
+    </div>
+    <h2 class="mt-16 text-2xl font-bold tracking-tight text-gray-900">Turbo Stream Alerts</h2>
+    <div class="mt-10 max-w-4xl gap-y-4 flex flex-col">
+      <p>
+        When I want to update the flash alert from a Turbo Stream response, I can use a turbo stream action to update the content within the empty alert div that the <code>flash_alert</code> renders when
+        there is no flash alert on the page load. Remember <code>return tag.div id: "alert" unless flash[:notice].present?</code> from the <code>flash_alert</code> helper?
+        Well that's what it's doing, giving the turbo stream a place to put an alert if I need.
+      </p>
+      <p>
+        Here's what the turbo stream response might look like:
+      </p>
+
+      <%= code_block "app/views/notices/code/8.erb", "erb" %>
+
+      <p>
+        If needed, I can pass <code>flash_alert</code> a block and embed more information, but otherwise, as long as I've set the <code>flash</code> in the controller with all the metadata
+        the <code>_alert.html.erb</code> partial will take care of rendering out the content from the controller.
+      </p>
+    </div>
+    <h2 class="mt-16 text-2xl font-bold tracking-tight text-gray-900">HTTP Toasts</h2>
+    <div class="mt-10 max-w-4xl gap-y-4 flex flex-col">
+      <p>
+        The "toast" pattern is a different kind of notice I want to show my users. It's an ephemeral notification that appears ontop of the UI generally in a corner of the browser. It can be dismissed and generally fades out on it's own after a certain amount of time.
+      </p>
+      <p>
+        Toasts are great for quick notifications or messages that shouldn't persist to or interupt the UI of the application. An example would be just letting the user know that something was created successfully.
+      </p>
+      <p>
+        What I do with toasts is embed a partial in my application layout that creates a space for toasts to occupy should the <code>flash</code> type be set to a toast.
+      </p>
+
+      <%= code_block "app/views/notices/code/9.erb", "erb" %>
+
+      <p>
+        It's not that much different than the <code>_alert.html.erb</code> partial.
+      </p>
+
+      <p>
+        In controllers, when I want a toast to be the notification, I can set it as such:
+      </p>
+
+      <%= code_block "app/views/notices/code/10.rb", "ruby" %>
+
+      <p>
+        Toasts though need a Stimulus controller to provide the animations and functionality to allow them to appear and disappear. Here's what I've been using.
+      </p>
+
+      <%= code_block "app/views/notices/code/11.js", "javascript" %>
     </div>
   </div>
 </div>

@@ -77,3 +77,7 @@
     }
   }
 }
+
+p code {
+  @apply font-bold;
+}

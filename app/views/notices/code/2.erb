@@ -1,0 +1,12 @@
+<% if @job_post_form.errors.present? %>
+  <div role="alert">
+    <div>
+      <span>A Job Post must have:</span>
+      <ul>
+        <% @job_post_form.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+<% end %>

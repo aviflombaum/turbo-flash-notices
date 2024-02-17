@@ -1,4 +1,4 @@
-module NoticesHelper
+module FlashHelper
   def flash_alert(&block)
     return tag.div id: "alert" unless flash[:notice].present?
     flash[:notice].symbolize_keys!
