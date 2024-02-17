@@ -9,10 +9,9 @@
 <% end %>
 <div class="bg-gray-200 divide-y divide-gray-200 rounded-lg shadow sm:grid sm:grid-cols-2 sm:gap-px sm:divide-y-0">
   <div class="relative flex flex-col p-6 bg-white rounded-tl-lg rounded-tr-lg sm:rounded-tr-none">
-    <h3 class="text-base font-semibold leading-6 text-gray-900">Standard Alert</h3>
+    <h3 class="text-base font-semibold leading-6 text-gray-900">HTTP Alert</h3>
     <p class="mt-2 text-sm text-gray-500">
-      An alert banner this is displayed in the page set during the controller action in the
-      <code>flash[:notice]</code>.
+      An alert from a standard HTTP response.
     </p>
     <div class="mt-auto">
       <%= form_tag notices_root_path, method: :get, data: {turbo_frame: "_top"} do %>
@@ -35,8 +34,7 @@
   <div class="relative flex flex-col p-6 bg-white sm:rounded-tr-lg">
     <h3 class="text-base font-semibold leading-6 text-gray-900">Turbo Frame Alert</h3>
     <p class="mt-2 text-sm text-gray-500">
-      An alert banner displayed after a turbo frame interaction.
-      <code>flash[:notice]</code>.
+      An alert after a turbo frame interaction.
     </p>
     <div class="mt-auto">
       <%= form_tag notices_root_path, method: :get, data: {turbo_frame: "alert"} do %>
@@ -59,8 +57,7 @@
   <div class="relative flex flex-col p-6 bg-white">
     <h3 class="text-base font-semibold leading-6 text-gray-900">Turbo Stream Alert</h3>
     <p class="mt-2 text-sm text-gray-500">
-      An alert banner powered by a turbo stream response.
-      <code>flash[:notice]</code>.
+      An alert from a turbo stream response.
     </p>
     <div class="mt-auto">
       <%= form_tag notices_root_path, method: :get, data: {turbo_stream: true} do %>
@@ -81,10 +78,9 @@
   </div>
 
   <div class="relative flex flex-col p-6 bg-white">
-    <h3 class="text-base font-semibold leading-6 text-gray-900">Standard Toast</h3>
+    <h3 class="text-base font-semibold leading-6 text-gray-900">HTTP Toast</h3>
     <p class="mt-2 text-sm text-gray-500">
-      An toast banner from a standard HTTP response.
-      <code>flash[:notice]</code>.
+      A toast from an HTTP response.
     </p>
     <div class="mt-auto">
       <%= form_tag notices_root_path, method: :get, data: {turbo_frame: "_top"} do %>
@@ -104,11 +100,10 @@
     </div>
   </div>
 
-  <div class="relative flex flex-col p-6 bg-white sm:rounded-bl-lg"">
+  <div class="relative flex flex-col p-6 bg-white sm:rounded-bl-lg">
     <h3 class="text-base font-semibold leading-6 text-gray-900">Turbo Frame Toast</h3>
     <p class="mt-2 text-sm text-gray-500">
-      An toast banner from a turbo frame interaction
-      <code>flash[:notice]</code>.
+      A toast from a turbo frame interaction.
     </p>
     <div class="mt-auto">
       <%= form_tag notices_root_path, method: :get, data: {turbo_frame: "toast"} do %>
@@ -128,11 +123,10 @@
     </div>
   </div>
 
-  <div class="relative flex flex-col p-6 bg-white sm:rounded-br-lg"">
+  <div class="relative flex flex-col p-6 bg-white sm:rounded-br-lg">
     <h3 class="text-base font-semibold leading-6 text-gray-900">Turbo Stream Toast</h3>
     <p class="mt-2 text-sm text-gray-500">
-      An toast banner from a turbo stream response.
-      <code>flash[:notice]</code>.
+      A toast from a turbo stream response.
     </p>
     <div class="mt-auto">
       <%= form_tag notices_root_path, method: :get, data: {turbo_stream: true} do %>
