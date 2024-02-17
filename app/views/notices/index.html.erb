@@ -8,6 +8,10 @@
   <%= flash_alert %>
 <% end %>
 
+<%= turbo_frame_tag "toast" do %>
+  <%= render "layouts/toast" %>
+<% end %>
+
 <div class="bg-gray-200 divide-y divide-gray-200 rounded-lg shadow sm:grid sm:grid-cols-2 sm:gap-px sm:divide-y-0">
   <div class="relative flex flex-col p-6 bg-white rounded-tl-lg rounded-tr-lg sm:rounded-tr-none">
     <h3 class="text-base font-semibold leading-6 text-gray-900">HTTP Alert</h3>
@@ -147,7 +151,3 @@
     </div>
   </div>
 </div>
-
-<%= turbo_frame_tag "toast" do %>
-  <%= render "layouts/toast" %>
-<% end %>
