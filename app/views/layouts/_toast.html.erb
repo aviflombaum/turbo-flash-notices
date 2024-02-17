@@ -1,0 +1,45 @@
+<%
+if flash[:notice].present? && flash[:notice][:type].to_sym == :toast
+  case flash[:notice][:status].to_sym
+  when :success
+    toast_class = "border-green-200 dark:border-green-700"
+    icon_class = "text-green-500 bg-green-100  dark:bg-green-800 dark:text-green-200"
+    icon_svg =
+      '<svg class="w-5 h-5 text-green-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg>'
+  when :warning
+    toast_class = "border-orange-200 dark:border-orange-700"
+    icon_class = "text-orange-500 bg-orange-100 dark:bg-orange-700 dark:text-orange-200"
+    icon_svg =
+      '<svg class="w-5 h-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.17 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625L8.485 2.495zM10 5a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 0110 5zm0 9a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" /></svg>'
+  when :error
+    toast_class = "border-red-200 dark:border-red-700"
+    icon_class = "text-red-500 bg-red-100 dark:bg-red-800 dark:text-red-200"
+    icon_svg =
+      '<svg class="w-5 h-5 text-red-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z" clip-rule="evenodd" /></svg>'
+  when :info
+    toast_class = "border-blue-200 dark:border-blue-700"
+    icon_class = "text-blue-500 bg-blue-100 dark:bg-blue-800 dark:text-blue-200"
+    icon_svg =
+      '<svg class="w-5 h-5 text-blue-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a.75.75 0 000 1.5h.253a.25.25 0 01.244.304l-.459 2.066A1.75 1.75 0 0010.747 15H11a.75.75 0 000-1.5h-.253a.25.25 0 01-.244-.304l.459-2.066A1.75 1.75 0 009.253 9H9z" clip-rule="evenodd" /></svg>'
+  end
+end
+%>
+
+<% if flash[:notice].present? && flash[:notice][:type].to_sym == :toast %>
+  <div id="toast-warning" class="<%= toast_class %> fixed z-50 flex items-center w-full max-w-xs p-4 text-gray-500 bg-white border-2 rounded-lg shadow-md top-5 right-5 dark:text-gray-400 dark:bg-gray-800" role="alert"
+    data-controller="toast">
+    <div class="<%= icon_class %> inline-flex items-center justify-center flex-shrink-0 w-8 h-8 rounded-lg">
+      <%= icon_svg.html_safe %>
+    </div>
+    <div class="text-sm font-normal ms-3">
+      <div><%= flash[:notice][:title] %></div>
+      <div><%= flash[:notice][:message] %></div>
+    </div>
+    <button type="button" data-action="toast#remove" class="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-warning" aria-label="Close">
+      <span class="sr-only">Close</span>
+      <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+      </svg>
+    </button>
+  </div>
+<% end %>

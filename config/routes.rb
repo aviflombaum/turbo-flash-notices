@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  namespace :notices do
+    root action: :index
+  end
+
   resources :invoices
   get "/posts/tags/new" => "posts/tags#new", :as => :posts_tags
 

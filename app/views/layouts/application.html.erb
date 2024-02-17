@@ -20,7 +20,7 @@
     <script defer data-domain="rails.avi.nyc" src="https://a.wip.dev/js/script.js"></script>
   </head>
 
-  <body>
+  <body class="<%= content_for(:body_class) %>">
     <main>
       <%= yield %>
     </main>

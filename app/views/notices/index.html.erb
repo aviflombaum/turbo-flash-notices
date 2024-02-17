@@ -1,0 +1,158 @@
+<% statuses = %w[warning error info success] %>
+
+<%= content_for :body_class, "bg-[#F3F4F6]" %>
+
+<h1 class="mb-4 tracking-tighter text-center">Turbo Flash Notices</h1>
+
+<%= turbo_frame_tag "alert" do %>
+  <div id="alert"><%= flash_alert %></div>
+<% end %>
+<div class="bg-gray-200 divide-y divide-gray-200 rounded-lg shadow sm:grid sm:grid-cols-2 sm:gap-px sm:divide-y-0">
+  <div class="relative flex flex-col p-6 bg-white rounded-tl-lg rounded-tr-lg sm:rounded-tr-none">
+    <h3 class="text-base font-semibold leading-6 text-gray-900">Standard Alert</h3>
+    <p class="mt-2 text-sm text-gray-500">
+      An alert banner this is displayed in the page set during the controller action in the
+      <code>flash[:notice]</code>.
+    </p>
+    <div class="mt-auto">
+      <%= form_tag notices_root_path, method: :get, data: {turbo_frame: "_top"} do %>
+        <%= hidden_field_tag :type, :alert %>
+        <select
+            name="status"
+            id="status"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <% statuses.each do |status| %>
+            <option value="<%= status %>"><%= status.titleize %></option>
+          <% end %>
+        </select>
+        <button class="w-full px-4 py-2 mt-2 font-semibold text-gray-800 bg-white border border-gray-400 rounded shadow hover:bg-gray-100">
+          Demo
+        </button>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="relative flex flex-col p-6 bg-white sm:rounded-tr-lg">
+    <h3 class="text-base font-semibold leading-6 text-gray-900">Turbo Frame Alert</h3>
+    <p class="mt-2 text-sm text-gray-500">
+      An alert banner displayed after a turbo frame interaction.
+      <code>flash[:notice]</code>.
+    </p>
+    <div class="mt-auto">
+      <%= form_tag notices_root_path, method: :get, data: {turbo_frame: "alert"} do %>
+        <%= hidden_field_tag :type, :alert %>
+        <select
+        name="status"
+        id="status"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <% statuses.each do |status| %>
+            <option value="<%= status %>"><%= status.titleize %></option>
+          <% end %>
+        </select>
+        <button class="w-full px-4 py-2 mt-2 font-semibold text-gray-800 bg-white border border-gray-400 rounded shadow hover:bg-gray-100">
+          Demo
+        </button>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="relative flex flex-col p-6 bg-white">
+    <h3 class="text-base font-semibold leading-6 text-gray-900">Turbo Stream Alert</h3>
+    <p class="mt-2 text-sm text-gray-500">
+      An alert banner powered by a turbo stream response.
+      <code>flash[:notice]</code>.
+    </p>
+    <div class="mt-auto">
+      <%= form_tag notices_root_path, method: :get, data: {turbo_stream: true} do %>
+        <%= hidden_field_tag :type, :alert %>
+        <select
+            name="status"
+            id="status"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <% statuses.each do |status| %>
+            <option value="<%= status %>"><%= status.titleize %></option>
+          <% end %>
+        </select>
+        <button class="w-full px-4 py-2 mt-2 font-semibold text-gray-800 bg-white border border-gray-400 rounded shadow hover:bg-gray-100">
+          Demo
+        </button>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="relative flex flex-col p-6 bg-white">
+    <h3 class="text-base font-semibold leading-6 text-gray-900">Standard Toast</h3>
+    <p class="mt-2 text-sm text-gray-500">
+      An toast banner from a standard HTTP response.
+      <code>flash[:notice]</code>.
+    </p>
+    <div class="mt-auto">
+      <%= form_tag notices_root_path, method: :get, data: {turbo_frame: "_top"} do %>
+        <%= hidden_field_tag :type, :toast %>
+        <select
+            name="status"
+            id="status"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <% statuses.each do |status| %>
+            <option value="<%= status %>"><%= status.titleize %></option>
+          <% end %>
+        </select>
+        <button class="w-full px-4 py-2 mt-2 font-semibold text-gray-800 bg-white border border-gray-400 rounded shadow hover:bg-gray-100">
+          Demo
+        </button>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="relative flex flex-col p-6 bg-white sm:rounded-bl-lg"">
+    <h3 class="text-base font-semibold leading-6 text-gray-900">Turbo Frame Toast</h3>
+    <p class="mt-2 text-sm text-gray-500">
+      An toast banner from a turbo frame interaction
+      <code>flash[:notice]</code>.
+    </p>
+    <div class="mt-auto">
+      <%= form_tag notices_root_path, method: :get, data: {turbo_frame: "toast"} do %>
+        <%= hidden_field_tag :type, :toast %>
+        <select
+            name="status"
+            id="status"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <% statuses.each do |status| %>
+            <option value="<%= status %>"><%= status.titleize %></option>
+          <% end %>
+        </select>
+        <button class="w-full px-4 py-2 mt-2 font-semibold text-gray-800 bg-white border border-gray-400 rounded shadow hover:bg-gray-100">
+          Demo
+        </button>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="relative flex flex-col p-6 bg-white sm:rounded-br-lg"">
+    <h3 class="text-base font-semibold leading-6 text-gray-900">Turbo Stream Toast</h3>
+    <p class="mt-2 text-sm text-gray-500">
+      An toast banner from a turbo stream response.
+      <code>flash[:notice]</code>.
+    </p>
+    <div class="mt-auto">
+      <%= form_tag notices_root_path, method: :get, data: {turbo_stream: true} do %>
+        <%= hidden_field_tag :type, :toast %>
+        <select
+            name="status"
+            id="status"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <% statuses.each do |status| %>
+            <option value="<%= status %>"><%= status.titleize %></option>
+          <% end %>
+        </select>
+        <button class="w-full px-4 py-2 mt-2 font-semibold text-gray-800 bg-white border border-gray-400 rounded shadow hover:bg-gray-100">
+          Demo
+        </button>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<%= turbo_frame_tag "toast" do %>
+  <%= render "layouts/toast" %>
+<% end %>
