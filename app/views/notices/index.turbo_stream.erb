@@ -1,6 +1,6 @@
 <% case flash[:notice][:type] %>
 <% when :alert %>
-  <%= turbo_stream.replace "alert" do %>
+  <%= turbo_stream.update "alert" do %>
     <%= flash_alert %>
   <% end %>
 <% when :toast %>
