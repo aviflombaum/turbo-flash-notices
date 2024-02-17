@@ -20,7 +20,7 @@ class NoticesController < ApplicationController
               type: :alert,
               status: params[:status],
               title: title,
-              message: "This is an alert notice."
+              message: "This is an alert notice. This is an alert notice. This is an alert notice."
             }
             redirect_to notices_root_path
           end

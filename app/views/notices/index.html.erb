@@ -4,7 +4,7 @@
 
 <h1 class="mb-4 tracking-tighter text-center">Turbo Flash Notices</h1>
 
-<%= turbo_frame_tag "alert" do %>
+<%= turbo_frame_tag "alert", class: "w-full" do %>
   <%= flash_alert %>
 <% end %>
 
